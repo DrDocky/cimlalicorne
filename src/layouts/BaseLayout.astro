@@ -1,0 +1,38 @@
+---
+import '../styles/global.css'; // On créera ce fichier juste après
+import Nav from '../components/Nav.astro'; // Le futur remplaçant de header.html
+import Footer from '../components/Footer.astro'; // Le futur remplaçant de footer.html
+
+// SEO et métadonnées par défaut (pourra être surchargé par chaque page)
+const {
+  title = "Centre d'Imagerie Médicale La Licorne — Saint-Lô (50)",
+  description = "Radiographie, échographie, mammographie et ostéodensitométrie à Saint-Lô. Ouvert du lundi au vendredi. Résultats en ligne sous 48h."
+} = Astro.props;
+---
+<!doctype html>
+<html lang="fr" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    
+    <!-- Polices du Brief : Inter + Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Le grain CSS sera appliqué via global.css -->
+    <Nav />
+    <main>
+      <slot /> <!-- C'est ici que le contenu de chaque page (index.astro, contact.astro) sera injecté -->
+    </main>
+    <Footer />
+    
+    <!-- Script global pour GSAP (voir brief) -->
+  </body>
+</html>
