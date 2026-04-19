@@ -1,17 +1,73 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import PatientJourney from '../components/PatientJourney.astro';
+import TeamIntro from '../components/TeamIntro.astro';
+import Location from '../components/Location.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout 
+  title="Radiologie & Échographie à Saint-Lô" 
+  description="Cabinet de radiologie La Licorne : Radiographie, Échographie, Mammographie, Ostéodensitométrie et Panoramique dentaire à Saint-Lô."
+>
+  <Hero />
+  
+  <section id="examens" class="py-24 bg-ciel">
+    <div class="container mx-auto px-6">
+      <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+        <span class="text-licorne uppercase tracking-[0.2em] text-[10px] font-bold">Expertises</span>
+        <h2 class="text-4xl mt-4 italic text-marine">Nos Examens</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <ServiceCard 
+          title="Radiographie" 
+          desc="Examens radiologiques standards numérisés pour poumons, os et articulations."
+          items={["Thorax", "Squelette", "ASP"]}
+          iconName="radiographie.svg"
+        />
+        <ServiceCard 
+          title="Échographie" 
+          desc="Explorations par ultrasons : abdomen, pelvis, thyroïde, muscles et doppler."
+          items={["Abdominale", "Thyroïde", "Musculaire"]}
+          iconName="echographie.svg"
+        />
+        <ServiceCard 
+          title="Mammographie" 
+          desc="Dépistage sénologique numérique de haute précision (agréé ADEM 50)."
+          items={["Dépistage", "Diagnostic"]}
+          iconName="mammographie.svg"
+        />
+        <ServiceCard 
+          title="Ostéodensitométrie" 
+          desc="Étude de la densité minérale osseuse pour le suivi de l'ostéoporose."
+          items={["Bilan Osseux"]}
+          iconName="osteodensitometrie.svg"
+        />
+        <ServiceCard 
+          title="Panoramique Dentaire" 
+          desc="Bilan complet de la dentition et des mâchoires pour votre dentiste."
+          items={["Dentaire", "Orthodontie"]}
+          iconName="panoramique_dentaire.svg"
+        />
+        
+        <!-- Optionnel : Scanner si vous l'utilisez, sinon carte contact -->
+        <!-- Card Spéciale : Contact -->
+        <div class="reveal bg-marine p-8 rounded-2xl flex flex-col justify-between">
+          <div>
+            <h3 class="text-2xl text-white italic mb-4">Besoin d'un rendez-vous ?</h3>
+            <p class="text-white/70 text-sm">Munissez-vous de votre ordonnance lors de votre appel.</p>
+          </div>
+          <a href="tel:0233571790" class="mt-8 bg-white text-marine text-center py-3 rounded-full font-medium hover:bg-ciel transition-colors">
+            02 33 57 17 90
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="parcours"><PatientJourney /></section>
+  <section id="cabinet"><TeamIntro /></section>
+  <Location />
+</BaseLayout>

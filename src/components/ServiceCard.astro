@@ -1,0 +1,27 @@
+---
+interface Props {
+  title: string;
+  desc: string;
+  items: string[];
+  iconName: string; // ex: 'radiographie.svg'
+}
+
+const { title, desc, items, iconName } = Astro.props;
+---
+
+<div class="reveal bg-blanc p-8 rounded-2xl border border-separateur shadow-soft hover:shadow-md transition-all group">
+  <div class="w-14 h-14 bg-ciel rounded-2xl flex items-center justify-center mb-6 group-hover:bg-marine/5 transition-colors">
+    <img src={`/assets/icons/${iconName}`} alt="" class="w-8 h-8 opacity-90" aria-hidden="true" />
+  </div>
+  
+  <h3 class="text-2xl mb-3 italic text-marine">{title}</h3>
+  <p class="text-brume text-sm mb-6 leading-relaxed">{desc}</p>
+  
+  <div class="flex flex-wrap gap-2 pt-6 border-t border-separateur">
+    {items.map(item => (
+      <span class="text-[10px] font-medium uppercase tracking-wider text-marine/60 bg-ciel px-2.5 py-1 rounded-full">
+        {item}
+      </span>
+    ))}
+  </div>
+</div>

@@ -1,38 +1,61 @@
 ---
-import '../styles/global.css'; // On créera ce fichier juste après
-import Nav from '../components/Nav.astro'; // Le futur remplaçant de header.html
-import Footer from '../components/Footer.astro'; // Le futur remplaçant de footer.html
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
 
-// SEO et métadonnées par défaut (pourra être surchargé par chaque page)
-const {
-  title = "Centre d'Imagerie Médicale La Licorne — Saint-Lô (50)",
-  description = "Radiographie, échographie, mammographie et ostéodensitométrie à Saint-Lô. Ouvert du lundi au vendredi. Résultats en ligne sous 48h."
-} = Astro.props;
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
 ---
-<!doctype html>
-<html lang="fr" class="scroll-smooth">
+
+<!DOCTYPE html>
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-
-    <title>{title}</title>
+    <title>{title} | CIM La Licorne Saint-Lô</title>
     <meta name="description" content={description} />
     
-    <!-- Polices du Brief : Inter + Playfair Display -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "MedicalClinic",
+        "name": "Centre d'Imagerie Médicale La Licorne",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "321 rue Alexis de Tocqueville",
+          "addressLocality": "Saint-Lô",
+          "postalCode": "50000",
+          "addressCountry": "FR"
+        },
+        "telephone": "+33233571790"
+      }
+    </script>
   </head>
   <body>
-    <!-- Le grain CSS sera appliqué via global.css -->
     <Nav />
-    <main>
-      <slot /> <!-- C'est ici que le contenu de chaque page (index.astro, contact.astro) sera injecté -->
-    </main>
+    <slot />
     <Footer />
-    
-    <!-- Script global pour GSAP (voir brief) -->
+
+    <script>
+      // Petit script pour l'animation au scroll
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('active');
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
   </body>
 </html>

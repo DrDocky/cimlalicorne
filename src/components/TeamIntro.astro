@@ -1,0 +1,24 @@
+<section class="py-24 bg-marine text-white">
+  <div class="container mx-auto px-6">
+    <div class="max-w-4xl mx-auto text-center reveal">
+      <h2 class="text-4xl md:text-5xl mb-8 italic text-white">Une équipe dédiée à votre santé</h2>
+      <p class="text-lg text-white/70 mb-12 font-sans leading-relaxed">
+        Le Centre La Licorne regroupe des médecins radiologues spécialisés, des manipulateurs radio qualifiés et une équipe de secrétariat médicale formée pour vous offrir une prise en charge complète et rapide.
+      </p>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        {[
+          { label: "Radiologues", val: "3" },
+          { label: "Manipulateurs", val: "6" },
+          { label: "Secrétaires", val: "4" },
+          { label: "Examens / an", val: "15k+" }
+        ].map(stat => (
+          <div class="border-t border-white/20 pt-6">
+            <div class="text-3xl font-serif mb-1 italic text-licorne">{stat.val}</div>
+            <div class="text-xs uppercase tracking-widest text-white/50">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

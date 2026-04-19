@@ -1,0 +1,48 @@
+<section class="py-24 bg-blanc overflow-hidden">
+  <div class="container mx-auto px-6">
+    <div class="flex flex-col md:flex-row gap-16 items-center">
+      <div class="md:w-1/3 reveal">
+        <span class="text-licorne uppercase tracking-[0.2em] text-xs font-semibold">Étapes</span>
+        <h2 class="text-4xl mt-4 mb-6 italic text-marine">Votre visite au cabinet</h2>
+        <p class="text-brume mb-8">
+          Nous avons optimisé chaque étape pour rendre votre examen le plus fluide et serein possible.
+        </p>
+        <a href="#contact" class="text-marine font-medium flex items-center gap-2 group">
+          Une question ? Contactez-nous 
+          <span class="group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+      </div>
+
+      <div class="md:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-8">
+        {[
+          {
+            num: "01",
+            title: "Prise de rendez-vous",
+            text: "Par téléphone au 02 33 57 17 90. Nos secrétaires vous guideront sur les documents à prévoir."
+          },
+          {
+            num: "02",
+            title: "Votre accueil",
+            text: "Présentez-vous 10 min avant avec votre ordonnance, carte vitale et anciens clichés."
+          },
+          {
+            num: "03",
+            title: "L'examen",
+            text: "Réalisé par nos manipulateurs radio diplômés sous le contrôle du médecin radiologue."
+          },
+          {
+            num: "04",
+            title: "Vos résultats",
+            text: "Repartez avec vos clichés. Le compte-rendu est disponible en ligne sous 24h via notre portail sécurisé."
+          }
+        ].map(step => (
+          <div class="reveal relative p-8 bg-ciel rounded-2xl border border-transparent hover:border-separateur transition-colors">
+            <span class="text-5xl font-serif text-marine/10 absolute top-4 right-6 leading-none italic">{step.num}</span>
+            <h4 class="text-lg font-medium text-marine mb-3 relative z-10">{step.title}</h4>
+            <p class="text-sm text-ardoise leading-relaxed relative z-10">{step.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

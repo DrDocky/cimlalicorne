@@ -1,1 +1,47 @@
 @import "tailwindcss";
+
+@theme {
+  /* Palette de couleurs du brief */
+  --color-marine: #1B3A5C;
+  --color-marine-sombre: #112540;
+  --color-marine-clair: #2A5080;
+  --color-licorne: #7B5EA7;
+  --color-ciel: #EAF2FB;
+  --color-blanc: #FFFFFF;
+  --color-ardoise: #4A5568;
+  --color-brume: #718096;
+  --color-separateur: #E2E8F0;
+  --color-succes: #2D7D46;
+
+  /* Typographies */
+  --font-serif: "DM Serif Display", serif;
+  --font-sans: "DM Sans", sans-serif;
+
+  /* Radius & Shadows */
+  --radius-2xl: 1.25rem;
+  --shadow-soft: 0 4px 20px -2px rgba(27, 58, 92, 0.08);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-ciel font-sans text-ardoise antialiased;
+  }
+  h1, h2, h3 {
+    @apply font-serif text-marine leading-tight;
+  }
+}
+
+/* Utilitaires pour l'animation au scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.7s cubic-bezier(0.21, 0.45, 0.32, 0.9);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
