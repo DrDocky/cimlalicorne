@@ -31,14 +31,34 @@ const { title, description } = Astro.props;
         "@context": "https://schema.org",
         "@type": "MedicalClinic",
         "name": "Centre d'Imagerie Médicale La Licorne",
+        "alternateName": "CIM La Licorne",
+        "image": "https://cimlalicorne.fr/assets/logo-complet.png",
+        "logo": "https://cimlalicorne.fr/favicon.svg",
+        "telephone": "+33233571790",
+        "email": "contact@cim-lalicorne.fr",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "321 rue Alexis de Tocqueville",
           "addressLocality": "Saint-Lô",
           "postalCode": "50000",
+          "addressRegion": "Normandie",
           "addressCountry": "FR"
         },
-        "telephone": "+33233571790"
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 49.112185,
+          "longitude": -1.078619
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:30",
+            "closes": "18:30"
+          }
+        ],
+        "medicalSpecialty": ["Radiology", "Ultrasonography"],
+        "priceRange": "$$"
       }
     </script>
   </head>

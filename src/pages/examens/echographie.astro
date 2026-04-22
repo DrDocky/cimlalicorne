@@ -1,0 +1,181 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Location from '../../components/Location.astro';
+
+const pageTitle = "Échographie et Doppler à Saint-Lô — Centre La Licorne";
+// Correction : Suppression du terme YMYL pour une description centrée sur le patient
+const pageDesc = "Réalisez votre échographie abdominale, pelvienne ou thyroïdienne au centre La Licorne à Saint-Lô. Tiers-payant pratiqué et résultats rapides sous 24h.";
+const baseUrl = "https://cimlalicorne.fr"; 
+// Correction : Date dynamique générée au moment du build
+const currentBuildDate = new Date().toISOString().split('T')[0];
+
+const faqItems = [
+  { 
+    q: "L'échographie est-elle remboursée à Saint-Lô ?", 
+    a: "Oui, l'échographie est un acte médical conventionné. Le Centre La Licorne pratique le tiers-payant sur la part obligatoire (Sécurité Sociale). Munissez-vous de votre carte vitale à jour." 
+  },
+  { 
+    q: "Pourquoi n'effectuez-vous pas les échographies de grossesse ?", 
+    a: "Le suivi obstétrical nécessite une spécialisation et un équipement dédié. Notre centre se concentre sur l'imagerie diagnostique viscérale et musculo-squelettique pour garantir une prise en charge rapide des pathologies aiguës." 
+  },
+  { 
+    q: "Combien de temps faut-il attendre pour les résultats ?", 
+    a: "Le radiologue vous donne un premier avis oral juste après l'examen. Le compte-rendu écrit validé est disponible sous 24h sur notre portail sécurisé." 
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": { "@type": "Answer", "text": item.a }
+  }))
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": `${baseUrl}/` },
+    { "@type": "ListItem", "position": 2, "name": "Examens", "item": `${baseUrl}/examens/` },
+    { "@type": "ListItem", "position": 3, "name": "Échographie", "item": `${baseUrl}/examens/echographie/` }
+  ]
+};
+
+const medicalSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalWebPage",
+  "name": pageTitle,
+  "description": pageDesc,
+  "lastReviewed": currentBuildDate, // Date dynamique
+  "about": {
+    "@type": "MedicalProcedure",
+    "name": "Échographie et Doppler",
+    "procedureType": "https://schema.org/DiagnosticProcedure",
+    "preparation": "Échographie abdominale : à jeun (6h). Échographie pelvienne : vessie pleine."
+  },
+  "audience": { "@type": "Patient" },
+  "medicalAudience": { "@type": "MedicalAudience" }
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDesc}>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(medicalSchema)} slot="head" />
+
+  <section class="pt-32 pb-20 bg-blanc">
+    <div class="container mx-auto px-6">
+      <nav class="flex gap-2 text-[10px] uppercase tracking-widest text-brume mb-12 font-bold">
+        <a href="/" class="hover:text-marine transition-colors">Accueil</a>
+        <span>/</span>
+        <a href="/examens/" class="hover:text-marine transition-colors">Examens</a>
+        <span>/</span>
+        <span class="text-marine">Échographie</span>
+      </nav>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+        <div class="lg:col-span-2">
+          <h1 class="text-4xl md:text-6xl italic text-marine mb-8 leading-tight">Échographie <br/>& Doppler</h1>
+          
+          <div class="prose prose-slate prose-lg text-ardoise max-w-none">
+            <p class="text-xl font-medium text-marine/80 mb-8 leading-relaxed">
+              L'échographie est une technologie d'imagerie dynamique par ultrasons. Totalement non invasive, elle permet une analyse fine des tissus mous et des flux sanguins au sein du cabinet La Licorne à Saint-Lô.
+            </p>
+
+            <h2 class="text-2xl font-serif italic text-marine mt-12 mb-6">Pourquoi cet examen est-il important ?</h2>
+            <p>
+              L’échographie permet au radiologue de visualiser les organes internes (foie, reins, rate, thyroïde) ainsi que les structures articulaires (tendons, ligaments) en mouvement. C'est l'examen de référence pour détecter des inflammations, des calculs, des kystes ou des nodules.
+            </p>
+
+            <!-- Correction : Réintégration de la section Préparation patient (cohérence Schema/HTML) -->
+            <h2 class="text-2xl font-serif italic text-marine mt-12 mb-6">Préparation avant l'examen</h2>
+            <ul class="space-y-3 list-none pl-0">
+              <li class="bg-ciel/40 p-4 rounded-xl border border-separateur text-sm">
+                <strong>Échographie abdominale :</strong> Être à jeun strict depuis 6h (ne pas manger, ne pas boire de boissons sucrées ou gazeuses, ne pas fumer).
+              </li>
+              <li class="bg-ciel/40 p-4 rounded-xl border border-separateur text-sm">
+                <strong>Échographie pelvienne :</strong> Vessie pleine — boire 1 litre d'eau une heure avant l'examen et ne pas uriner jusqu'au passage en salle.
+              </li>
+              <li class="bg-ciel/40 p-4 rounded-xl border border-separateur text-sm">
+                <strong>Autres échographies (thyroïde, tendons) :</strong> Aucune préparation particulière n'est requise.
+              </li>
+            </ul>
+
+            <h2 class="text-2xl font-serif italic text-marine mt-12 mb-6">Nos équipements de diagnostic</h2>
+            <p>
+              Le centre est doté d'échographes de haute résolution utilisant des sondes multi-fréquences. Cette technologie garantit une pénétration optimale des ultrasons pour les organes profonds tout en conservant une précision millimétrique pour les zones superficielles.
+            </p>
+
+            <h2 class="text-2xl font-serif italic text-marine mt-12 mb-6">Remboursement et Tarifs à Saint-Lô</h2>
+            <p>
+              L'échographie est un acte remboursé par la Sécurité Sociale à hauteur de 70% (tarif conventionné). Le Centre La Licorne applique le <strong>tiers-payant</strong> : vous n'avancez pas la part obligatoire sur présentation de votre carte vitale.
+            </p>
+
+            <h2 class="text-2xl font-serif italic text-marine mt-12 mb-6">Résultats et transmission des comptes-rendus</h2>
+            <p>
+              Le radiologue vous expose les premières constatations oralement. Un dossier papier vous est remis. Le compte-rendu définitif est disponible sous 24h via notre portail sécurisé Xplore.
+            </p>
+          </div>
+
+          <div class="mt-20" x-data="{ active: null }">
+            <h2 class="text-3xl italic text-marine mb-8 font-serif font-medium">Questions fréquentes</h2>
+            <div class="space-y-4">
+              {faqItems.map((item, i) => (
+                <div class="border border-separateur rounded-2xl overflow-hidden bg-ciel/30">
+                  <button @click={`active === ${i} ? active = null : active = ${i}`} class="w-full p-6 text-left flex justify-between items-center group focus:outline-none">
+                    <span class="font-bold text-marine group-hover:text-licorne transition-colors">{item.q}</span>
+                    <span class="text-2xl text-licorne font-serif leading-none" x-text={`active === ${i} ? '−' : '+'`}></span>
+                  </button>
+                  <div x-show={`active === ${i}`} x-collapse x-cloak class="px-6 pb-6 text-sm text-ardoise leading-relaxed border-t border-separateur/50 pt-4">
+                    {item.a}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <aside class="lg:col-span-1">
+          <div class="sticky top-32 space-y-8">
+            <div class="bg-marine p-8 rounded-3xl text-white shadow-xl">
+              <h3 class="text-xl font-serif italic mb-4">Prendre rendez-vous</h3>
+              <a href="tel:0233571790" class="flex items-center justify-center gap-3 bg-white text-marine py-4 rounded-full font-bold hover:bg-licorne hover:text-white transition-all text-lg shadow-inner">
+                02 33 57 17 90
+              </a>
+            </div>
+
+            <div class="bg-blanc p-8 rounded-3xl border border-separateur shadow-soft">
+              <h3 class="text-lg font-serif italic text-marine mb-6">Tous nos examens</h3>
+              <nav class="flex flex-col gap-3">
+                <a href="/examens/radiographie" class="text-sm py-3 px-4 rounded-xl bg-ciel/50 text-marine font-medium hover:bg-marine hover:text-white transition-all flex justify-between items-center group">
+                  Radiographie <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                </a>
+                <a href="/examens/mammographie" class="text-sm py-3 px-4 rounded-xl bg-ciel/50 text-marine font-medium hover:bg-marine hover:text-white transition-all flex justify-between items-center group">
+                  Mammographie <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                </a>
+                <!-- Ajout Scanner au maillage interne -->
+                <a href="/examens/scanner" class="text-sm py-3 px-4 rounded-xl bg-ciel/50 text-marine font-medium hover:bg-marine hover:text-white transition-all flex justify-between items-center group">
+                  Scanner <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                </a>
+                <a href="/examens/osteodensitometrie" class="text-sm py-3 px-4 rounded-xl bg-ciel/50 text-marine font-medium hover:bg-marine hover:text-white transition-all flex justify-between items-center group">
+                  Ostéodensitométrie <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                </a>
+                <a href="/examens/panoramique-dentaire" class="text-sm py-3 px-4 rounded-xl bg-ciel/50 text-marine font-medium hover:bg-marine hover:text-white transition-all flex justify-between items-center group">
+                  Panoramique dentaire <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                </a>
+              </nav>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+  <Location />
+</BaseLayout>
+
+<style>
+  [x-cloak] { display: none !important; }
+</style>

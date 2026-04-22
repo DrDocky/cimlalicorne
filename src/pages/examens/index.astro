@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Location from '../../components/Location.astro';
+
+const pageTitle = "Tous nos examens d'Imagerie Médicale à Saint-Lô — Centre La Licorne";
+const pageDesc = "Découvrez la liste complète des examens pratiqués au cabinet La Licorne : Radiographie, Échographie, Mammographie, Scanner, Panoramique dentaire.";
+
+const examens = [
+  { slug: "radiographie", title: "Radiographie", icon: "radiographie.svg", desc: "Squelette, thorax et articulations." },
+  { slug: "echographie", title: "Échographie", icon: "echographie.svg", desc: "Organes mous et Doppler." },
+  { slug: "mammographie", title: "Mammographie", icon: "mammographie.svg", desc: "Dépistage et sénologie." },
+  { slug: "scanner", title: "Scanner", icon: "scanner.svg", desc: "Exploration haute définition." },
+  { slug: "osteodensitometrie", title: "Ostéodensitométrie", icon: "osteodensitometrie.svg", desc: "Mesure de densité osseuse." },
+  { slug: "panoramique-dentaire", title: "Panoramique Dentaire", icon: "panoramique_dentaire.svg", desc: "Bilan complet mâchoires." }
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDesc}>
+  <section class="pt-32 pb-20 bg-ciel">
+    <div class="container mx-auto px-6">
+      <div class="max-w-3xl mb-16">
+        <span class="text-licorne uppercase tracking-[0.2em] text-[10px] font-bold">Plateau Technique</span>
+        <h1 class="text-4xl md:text-6xl italic text-marine mt-4 leading-tight">Nos Examens d'Imagerie</h1>
+        <p class="text-lg text-ardoise mt-6 leading-relaxed">
+          Le Centre La Licorne à Saint-Lô regroupe l'ensemble des spécialités de l'imagerie médicale moderne. Sélectionnez un examen pour découvrir les détails du parcours patient.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {examens.map(ex => (
+          <a href={`/examens/${ex.slug}`} class="bg-blanc p-8 rounded-3xl border border-separateur shadow-soft hover:shadow-md transition-all group flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 bg-ciel rounded-2xl flex items-center justify-center mb-6 group-hover:bg-marine/5 transition-colors">
+                <img src={`/assets/icons/${ex.icon}`} alt="" class="w-6 h-6" />
+              </div>
+              <h2 class="text-2xl italic text-marine mb-3">{ex.title}</h2>
+              <p class="text-sm text-brume leading-relaxed">{ex.desc}</p>
+            </div>
+            <span class="text-licorne text-xs font-bold uppercase tracking-widest mt-8 flex items-center gap-2 group-hover:translate-x-2 transition-transform">
+              En savoir plus <span>→</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <Location />
+</BaseLayout>

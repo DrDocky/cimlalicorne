@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Location from '../../components/Location.astro';
+
+const pageTitle = "Scanner à Saint-Lô — Imagerie Médicale La Licorne";
+const pageDesc = "Examen scanner avec ou sans injection à Saint-Lô. Exploration millimétrique haute définition pour un diagnostic précis. Prise de RDV rapide.";
+const baseUrl = "https://cimlalicorne.fr";
+const currentBuildDate = new Date().toISOString().split('T')[0];
+
+const faqItems = [
+  { q: "Qu'est-ce qu'une injection de produit de contraste ?", a: "Certains scanners nécessitent l'injection d'un produit à base d'iode pour mieux visualiser les vaisseaux et les organes. Une prise de sang préalable (créatinine) pourra vous être demandée." },
+  { q: "Le scanner est-il douloureux ?", a: "Non, l'examen est totalement indolore et rapide. Vous devez simplement rester immobile pendant quelques secondes sous l'anneau." },
+  { q: "Puis-je manger avant mon scanner ?", a: "Si votre examen nécessite une injection, il est recommandé de ne pas manger de repas solide 4h avant. Dans les autres cas, vous pouvez manger normalement." }
+];
+
+const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": faqItems.map(item => ({ "@type": "Question", "name": item.q, "acceptedAnswer": { "@type": "Answer", "text": item.a } })) };
+const breadcrumbSchema = { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [ { "@type": "ListItem", "position": 1, "name": "Accueil", "item": `${baseUrl}/` }, { "@type": "ListItem", "position": 2, "name": "Examens", "item": `${baseUrl}/examens/` }, { "@type": "ListItem", "position": 3, "name": "Scanner", "item": `${baseUrl}/examens/scanner/` } ] };
+const medicalSchema = { "@context": "https://schema.org", "@type": "MedicalWebPage", "name": pageTitle, "description": pageDesc, "lastReviewed": currentBuildDate, "about": { "@type": "MedicalProcedure", "name": "Scanner (TDM)", "procedureType": "https://schema.org/DiagnosticProcedure", "preparation": "Vérifier la fonction rénale si injection prévue. Signaler allergies à l'iode." }, "audience": { "@type": "Patient" } };
+---
+
+<BaseLayout title={pageTitle} description={pageDesc}>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(medicalSchema)} slot="head" />
+
+  <section class="pt-32 pb-20 bg-blanc">
+    <div class="container mx-auto px-6">
+      <nav class="flex gap-2 text-[10px] uppercase tracking-widest text-brume mb-12 font-bold font-sans">
+        <a href="/" class="hover:text-marine transition-colors">Accueil</a>
+        <span>/</span>
+        <a href="/examens/" class="hover:text-marine transition-colors">Examens</a>
+        <span>/</span>
+        <span class="text-marine">Scanner</span>
+      </nav>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+        <div class="lg:col-span-2">
+          <h1 class="text-4xl md:text-6xl italic text-marine mb-8 leading-tight">Scanner <br/>Haute Définition</h1>
+          
+          <div class="prose prose-slate prose-lg text-ardoise max-w-none">
+            <p class="text-xl font-medium text-marine/80 mb-8 leading-relaxed">
+              Le scanner (ou tomodensitométrie) permet une exploration millimétrique du corps humain par coupes transversales. C'est l'examen de référence pour l'analyse approfondie des organes internes et des structures vasculaires.
+            </p>
+
+            <h2 class="text-2xl font-serif italic text-marine mt-12 mb-6">Précision et Rapidité du Diagnostic</h2>
+            <p>
+              Grâce à nos équipements de pointe, le scanner permet d'obtenir des images en trois dimensions d'une grande finesse. Il est indispensable pour le diagnostic de pathologies thoraciques, abdominales, neurologiques ou pour le suivi oncologique. La rapidité d'acquisition des images réduit le temps passé dans l'appareil, améliorant le confort des patients, notamment ceux sujets à la claustrophobie.
+            </p>
+
+            <h2 class="text-2xl font-serif italic text-marine mt-12 mb-6 text-marine">Préparation avant l'examen</h2>
+            <ul class="space-y-3 list-none pl-0">
+              <li class="bg-ciel/40 p-4 rounded-xl border border-separateur text-sm">
+                <strong>Bilan Rénal :</strong> Pour les examens avec injection d'iode, une prise de sang récente (créatinine) est obligatoire pour vérifier le bon fonctionnement de vos reins.
+              </li>
+              <li class="bg-ciel/40 p-4 rounded-xl border border-separateur text-sm">
+                <strong>Allergies :</strong> Signalez impérativement toute allergie connue au produit de contraste iodé lors de la prise de rendez-vous.
+              </li>
+            </ul>
+
+            <h2 class="text-2xl font-serif italic text-marine mt-12 mb-6">Remboursement et Tarification</h2>
+            <p>
+              Le scanner est un acte médical remboursé par la Sécurité Sociale. Nous pratiquons le tiers-payant sur la part obligatoire. Veuillez noter que le produit de contraste, s'il est prescrit, est à retirer en pharmacie avant votre examen ou peut être fourni par le centre selon les protocoles.
+            </p>
+
+            <h2 class="text-2xl font-serif italic text-marine mt-12 mb-6">Remise des comptes-rendus</h2>
+            <p>
+              Le radiologue analyse les centaines de coupes générées par l'appareil. Un premier commentaire peut vous être fait oralement. Le compte-rendu final est disponible sous 24h à 48h sur notre espace patient sécurisé Xplore.
+            </p>
+          </div>
+
+          <div class="mt-20" x-data="{ active: null }">
+            <h2 class="text-3xl italic text-marine mb-8 font-serif">Questions fréquentes</h2>
+            <div class="space-y-4">
+              {faqItems.map((item, i) => (
+                <div class="border border-separateur rounded-2xl overflow-hidden bg-ciel/30">
+                  <button @click={`active === ${i} ? active = null : active = ${i}`} class="w-full p-6 text-left flex justify-between items-center group focus:outline-none">
+                    <span class="font-bold text-marine group-hover:text-licorne transition-colors">{item.q}</span>
+                    <span class="text-2xl text-licorne font-serif leading-none" x-text={`active === ${i} ? '−' : '+'`}></span>
+                  </button>
+                  <div x-show={`active === ${i}`} x-collapse x-cloak class="px-6 pb-6 text-sm text-ardoise border-t border-separateur/50 pt-4">
+                    {item.a}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <aside class="lg:col-span-1">
+          <div class="sticky top-32 space-y-8">
+            <div class="bg-marine p-8 rounded-3xl text-white shadow-xl">
+              <h3 class="text-xl font-serif italic mb-4">Prendre rendez-vous</h3>
+              <a href="tel:0233571790" class="flex items-center justify-center gap-3 bg-white text-marine py-4 rounded-full font-bold hover:bg-licorne transition-all text-lg">
+                02 33 57 17 90
+              </a>
+            </div>
+            <div class="bg-blanc p-8 rounded-3xl border border-separateur">
+              <h3 class="text-lg font-serif italic text-marine mb-6">Tous nos examens</h3>
+              <nav class="flex flex-col gap-3">
+                <a href="/examens/radiographie" class="text-sm py-3 px-4 rounded-xl bg-ciel/50 text-marine font-medium hover:bg-marine hover:text-white transition-all flex justify-between items-center group">Radiographie <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span></a>
+                <a href="/examens/echographie" class="text-sm py-3 px-4 rounded-xl bg-ciel/50 text-marine font-medium hover:bg-marine hover:text-white transition-all flex justify-between items-center group">Échographie <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span></a>
+                <a href="/examens/mammographie" class="text-sm py-3 px-4 rounded-xl bg-ciel/50 text-marine font-medium hover:bg-marine hover:text-white transition-all flex justify-between items-center group">Mammographie <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span></a>
+              </nav>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+  <Location />
+</BaseLayout>
+<style>[x-cloak] { display: none !important; }</style>

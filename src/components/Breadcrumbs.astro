@@ -1,0 +1,10 @@
+---
+const { currentPage } = Astro.props;
+---
+<nav class="flex py-4 text-xs uppercase tracking-widest text-brume mb-8 border-b border-separateur/50">
+  <ol class="flex items-center gap-2">
+    <li><a href="/" class="hover:text-marine transition-colors">Accueil</a></li>
+    <li><span class="opacity-50">/</span></li>
+    <li><span class="text-marine font-bold">{currentPage}</span></li>
+  </ol>
+</nav>

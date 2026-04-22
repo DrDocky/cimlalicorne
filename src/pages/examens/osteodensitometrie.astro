@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Location from '../../components/Location.astro';
+
+const pageTitle = "Ostéodensitométrie à Saint-Lô — Diagnostic Ostéoporose | La Licorne";
+const pageDesc = "Mesurez votre densité minérale osseuse à Saint-Lô. Examen clé pour le dépistage de l'ostéoporose. Expertise médicale, tiers-payant et confort.";
+const baseUrl = "https://cimlalicorne.fr"; 
+const currentBuildDate = new Date().toISOString().split('T')[0];
+
+const faqItems = [
+  { q: "L'ostéodensitométrie est-elle douloureuse ?", a: "Non, c'est un examen totalement indolore et non invasif. Vous restez allongé immobile pendant que l'appareil survole les zones à examiner (hanche et rachis)." },
+  { q: "Faut-il être à jeun ?", a: "Non, aucune préparation alimentaire n'est requise. Vous pouvez manger et boire normalement avant votre rendez-vous." },
+  { q: "L'examen est-il remboursé ?", a: "L'ostéodensitométrie est prise en charge par l'Assurance Maladie sous certaines conditions médicales (ménopause précoce, antécédents de fracture sans choc, etc.)." }
+];
+
+const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": faqItems.map(item => ({ "@type": "Question", "name": item.q, "acceptedAnswer": { "@type": "Answer", "text": item.a } })) };
+const breadcrumbSchema = { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [ { "@type": "ListItem", "position": 1, "name": "Accueil", "item": `${baseUrl}/` }, { "@type": "ListItem", "position": 2, "name": "Examens", "item": `${baseUrl}/examens/` }, { "@type": "ListItem", "position": 3, "name": "Ostéodensitométrie", "item": `${baseUrl}/examens/osteodensitometrie/` } ] };
+const medicalSchema = { "@context": "https://schema.org", "@type": "MedicalWebPage", "name": pageTitle, "description": pageDesc, "lastReviewed": currentBuildDate, "about": { "@type": "MedicalProcedure", "name": "Ostéodensitométrie (DMO)", "procedureType": "https://schema.org/DiagnosticProcedure", "preparation": "Porter des vêtements sans métal. Éviter les suppléments calciques 24h avant." }, "audience": { "@type": "Patient" } };
+---
+
+<BaseLayout title={pageTitle} description={pageDesc}>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(medicalSchema)} slot="head" />
+
+  <section class="pt-32 pb-20 bg-blanc">
+    <div class="container mx-auto px-6">
+      <nav class="flex gap-2 text-[10px] uppercase tracking-widest text-brume mb-12 font-bold font-sans">
+        <a href="/" class="hover:text-marine transition-colors">Accueil</a>
+        <span>/</span>
+        <a href="/examens/" class="hover:text-marine transition-colors">Examens</a>
+        <span>/</span>
+        <span class="text-marine">Ostéodensitométrie</span>
+      </nav>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+        <div class="lg:col-span-2">
+          <h1 class="text-4xl md:text-6xl italic text-marine mb-8 leading-tight">Ostéodensitométrie <br/>Osseuse</h1>
+          
+          <div class="prose prose-slate prose-lg text-ardoise max-w-none">
+            <p class="text-xl font-medium text-marine/80 mb-8 leading-relaxed">
+              L'ostéodensitométrie est l'examen de référence pour mesurer la Densité Minérale Osseuse (DMO). Elle permet de diagnostiquer l'ostéoporose et d'évaluer avec précision le risque de fracture future.
+            </p>
+
+            <h2 class="text-2xl font-serif italic text-marine mt-12 mb-6">Prévention et Santé de la Trame Osseuse</h2>
+            <p>
+              Avec l'âge, la masse osseuse peut diminuer, rendant les os plus fragiles et poreux. L'ostéodensitométrie utilise une très faible dose de rayons X (bien inférieure à une radiographie pulmonaire) pour analyser la teneur en calcium des os. Cet examen est particulièrement recommandé chez les femmes ménopausées, les personnes ayant des antécédents familiaux d'ostéoporose, ou lors de traitements prolongés à base de cortisone.
+            </p>
+
+            <h2 class="text-2xl font-serif italic text-marine mt-12 mb-6">Préparation avant l'examen</h2>
+            <ul class="space-y-3 list-none pl-0">
+              <li class="bg-ciel/40 p-4 rounded-xl border border-separateur text-sm">
+                <strong>Vêtements :</strong> Portez des vêtements confortables sans boutons pression, fermetures éclair ou éléments métalliques dans la région lombaire et des hanches.
+              </li>
+              <li class="bg-ciel/40 p-4 rounded-xl border border-separateur text-sm">
+                <strong>Suppléments :</strong> Il est conseillé de ne pas prendre de suppléments de calcium dans les 24 heures précédant l'examen pour ne pas fausser les mesures.
+              </li>
+            </ul>
+
+            <h2 class="text-2xl font-serif italic text-marine mt-12 mb-6">Prise en charge et Remboursement</h2>
+            <p>
+              L'examen est pris en charge à 70% par la Sécurité Sociale sur la base du tarif conventionné, sous réserve de remplir certains critères cliniques. Le Centre La Licorne pratique le <strong>tiers-payant</strong> sur la part obligatoire pour simplifier vos démarches administratives.
+            </p>
+
+            <h2 class="text-2xl font-serif italic text-marine mt-12 mb-6">Résultats et Interprétation</h2>
+            <p>
+              Le résultat est exprimé par un "T-score". Le médecin radiologue interprète ce score pour déterminer si votre densité osseuse est normale, ou s'il existe une ostéopénie ou une ostéoporose. Vous repartez avec votre dossier complet, et le compte-rendu est disponible en ligne sous 24h.
+            </p>
+          </div>
+
+          <div class="mt-20" x-data="{ active: null }">
+            <h2 class="text-3xl italic text-marine mb-8 font-serif">Questions fréquentes</h2>
+            <div class="space-y-4">
+              {faqItems.map((item, i) => (
+                <div class="border border-separateur rounded-2xl overflow-hidden bg-ciel/30">
+                  <button @click={`active === ${i} ? active = null : active = ${i}`} class="w-full p-6 text-left flex justify-between items-center group focus:outline-none">
+                    <span class="font-bold text-marine group-hover:text-licorne transition-colors">{item.q}</span>
+                    <span class="text-2xl text-licorne font-serif leading-none" x-text={`active === ${i} ? '−' : '+'`}></span>
+                  </button>
+                  <div x-show={`active === ${i}`} x-collapse x-cloak class="px-6 pb-6 text-sm text-ardoise border-t border-separateur/50 pt-4">
+                    {item.a}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <aside class="lg:col-span-1">
+          <div class="sticky top-32 space-y-8">
+            <div class="bg-marine p-8 rounded-3xl text-white shadow-xl">
+              <h3 class="text-xl font-serif italic mb-4">Prendre rendez-vous</h3>
+              <a href="tel:0233571790" class="flex items-center justify-center gap-3 bg-white text-marine py-4 rounded-full font-bold hover:bg-licorne transition-all text-lg">
+                02 33 57 17 90
+              </a>
+            </div>
+            <div class="bg-blanc p-8 rounded-3xl border border-separateur">
+              <h3 class="text-lg font-serif italic text-marine mb-6">Autres examens</h3>
+              <nav class="flex flex-col gap-3 text-sm">
+                <a href="/examens/radiographie" class="py-3 px-4 rounded-xl bg-ciel/50 text-marine font-medium hover:bg-marine hover:text-white transition-all flex justify-between group">Radiographie <span>→</span></a>
+                <a href="/examens/scanner" class="py-3 px-4 rounded-xl bg-ciel/50 text-marine font-medium hover:bg-marine hover:text-white transition-all flex justify-between group">Scanner <span>→</span></a>
+                <a href="/examens/mammographie" class="py-3 px-4 rounded-xl bg-ciel/50 text-marine font-medium hover:bg-marine hover:text-white transition-all flex justify-between group">Mammographie <span>→</span></a>
+              </nav>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+  <Location />
+</BaseLayout>
+<style>[x-cloak] { display: none !important; }</style>
