@@ -1,0 +1,142 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Location from '../components/Location.astro';
+import { EXAMENS } from '../data/examens';
+import type { ExamenContent } from '../data/examens-content';
+
+interface Props {
+  base: { slug: string; titre: string };
+  content: ExamenContent;
+}
+
+const { base, content } = Astro.props;
+const baseUrl = "https://cimlalicorne.fr";
+const currentBuildDate = new Date().toISOString().split('T')[0];
+
+const autresExamens = EXAMENS.filter(ex => ex.slug !== base.slug);
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": content.faq.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a }
+  }))
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": `${baseUrl}/` },
+    { "@type": "ListItem", "position": 2, "name": "Examens", "item": `${baseUrl}/examens/` },
+    { "@type": "ListItem", "position": 3, "name": base.titre, "item": `${baseUrl}/examens/${base.slug}/` }
+  ]
+};
+
+const medicalSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalWebPage",
+  "name": content.metaTitle,
+  "description": content.metaDesc,
+  "lastReviewed": currentBuildDate,
+  "about": {
+    "@type": "MedicalProcedure",
+    "name": content.medicalProcedureName,
+    "procedureType": "https://schema.org/DiagnosticProcedure",
+    "preparation": content.medicalPreparation
+  },
+  "audience": { "@type": "Patient" }
+};
+---
+
+<BaseLayout title={content.metaTitle} description={content.metaDesc}>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(medicalSchema)} slot="head" />
+
+  <section class="pt-32 pb-20 bg-blanc">
+    <div class="container mx-auto px-6">
+
+      <nav class="flex gap-2 text-[10px] uppercase tracking-widest text-brume mb-12 font-bold">
+        <a href="/" class="hover:text-marine transition-colors">Accueil</a>
+        <span>/</span>
+        <a href="/examens/" class="hover:text-marine transition-colors">Examens</a>
+        <span>/</span>
+        <span class="text-marine">{base.titre}</span>
+      </nav>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+        <div class="lg:col-span-2">
+          <h1 class="text-4xl md:text-6xl italic text-marine mb-8 leading-tight">{content.h1}</h1>
+
+          <div class="prose prose-slate prose-lg text-ardoise max-w-none">
+            <p class="text-xl font-medium text-marine/80 mb-8 leading-relaxed">{content.intro}</p>
+            <p>{content.corps}</p>
+
+            <h2 class="text-2xl font-serif italic text-marine mt-12 mb-6">Préparation avant l'examen</h2>
+            <ul class="space-y-3 list-none pl-0">
+              {content.preparations.map(p => (
+                <li class="bg-ciel/40 p-4 rounded-xl border border-separateur text-sm">
+                  <strong>{p.label} :</strong> {p.text}
+                </li>
+              ))}
+            </ul>
+
+            <slot />
+
+            <h2 class="text-2xl font-serif italic text-marine mt-12 mb-6">Remboursement & Résultats</h2>
+            <p>Le Centre La Licorne pratique le <strong>tiers-payant</strong> sur la part obligatoire.
+            Votre compte-rendu est disponible sous 24h sur notre portail sécurisé.</p>
+          </div>
+
+          <div class="mt-20" x-data="{ active: null }">
+            <h2 class="text-3xl italic text-marine mb-8 font-serif">Questions fréquentes</h2>
+            <div class="space-y-4">
+              {content.faq.map((item, i) => (
+                <div class="border border-separateur rounded-2xl overflow-hidden bg-ciel/30 text-sm">
+                  <button @click={`active === ${i} ? active = null : active = ${i}`}
+                          class="w-full p-6 text-left flex justify-between items-center group">
+                    <span class="font-bold text-marine group-hover:text-licorne transition-colors">{item.q}</span>
+                    <span class="text-2xl text-licorne font-serif" x-text={`active === ${i} ? '−' : '+'`}></span>
+                  </button>
+                  <div x-show={`active === ${i}`} x-collapse x-cloak
+                       class="px-6 pb-6 text-ardoise border-t border-separateur/50 pt-4">
+                    {item.a}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <aside class="lg:col-span-1">
+          <div class="sticky top-32 space-y-8">
+            <div class="bg-marine p-8 rounded-3xl text-white shadow-xl">
+              <h3 class="text-xl font-serif italic mb-4">Prendre rendez-vous</h3>
+              <a href="tel:0233571790"
+                 class="flex items-center justify-center gap-3 bg-white text-marine py-4 rounded-full font-bold hover:bg-licorne hover:text-white transition-all">
+                02 33 57 17 90
+              </a>
+            </div>
+            <div class="bg-blanc p-8 rounded-3xl border border-separateur shadow-soft">
+              <h3 class="text-lg font-serif italic text-marine mb-6">Autres examens</h3>
+              <nav class="flex flex-col gap-3">
+                {autresExamens.map(ex => (
+                  <a href={`/examens/${ex.slug}/`}
+                     class="text-sm py-3 px-4 rounded-xl bg-ciel/50 text-marine font-medium hover:bg-marine hover:text-white transition-all flex justify-between group">
+                    {ex.titre}
+                    <span class="group-hover:translate-x-1 transition-transform">→</span>
+                  </a>
+                ))}
+              </nav>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+  <Location />
+</BaseLayout>
+<style>[x-cloak] { display: none !important; }</style>

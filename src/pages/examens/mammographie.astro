@@ -1,112 +1,19 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Location from '../../components/Location.astro';
+import ExamenLayout from '../../layouts/ExamenLayout.astro';
+import { EXAMENS } from '../../data/examens';
+import { EXAMENS_CONTENT } from '../../data/examens-content';
 
-const pageTitle = "Mammographie à Saint-Lô — Centre de Sénologie La Licorne";
-const pageDesc = "Examen de mammographie numérique et dépistage organisé (ADEM 50) à Saint-Lô. Équipe spécialisée, matériel basse dose et confort patient.";
-const baseUrl = "https://cimlalicorne.fr";
-const currentBuildDate = new Date().toISOString().split('T')[0];
-
-const faqItems = [
-  { q: "La mammographie est-elle douloureuse ?", a: "L'examen nécessite une compression brève du sein pour assurer une image nette et réduire l'exposition aux rayons X. Cela peut être inconfortable quelques secondes, mais n'est pas considéré comme douloureux." },
-  { q: "Quand faire sa mammographie ?", a: "Idéalement, effectuez l'examen entre le 1er et le 12ème jour du cycle menstruel, période où les seins sont moins sensibles." },
-  { q: "Pourquoi une double lecture (ADEM 50) ?", a: "Dans le cadre du dépistage organisé, une seconde lecture par un radiologue expert est systématique pour garantir une fiabilité maximale des résultats." }
-];
-
-const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": faqItems.map(item => ({ "@type": "Question", "name": item.q, "acceptedAnswer": { "@type": "Answer", "text": item.a } })) };
-const breadcrumbSchema = { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [ { "@type": "ListItem", "position": 1, "name": "Accueil", "item": `${baseUrl}/` }, { "@type": "ListItem", "position": 2, "name": "Examens", "item": `${baseUrl}/examens/` }, { "@type": "ListItem", "position": 3, "name": "Mammographie", "item": `${baseUrl}/examens/mammographie/` } ] };
-const medicalSchema = { "@context": "https://schema.org", "@type": "MedicalWebPage", "name": pageTitle, "description": pageDesc, "lastReviewed": currentBuildDate, "about": { "@type": "MedicalProcedure", "name": "Mammographie numérique", "procedureType": "https://schema.org/DiagnosticProcedure", "preparation": "Pas de cosmétiques sur le buste. Apporter anciens clichés." }, "audience": { "@type": "Patient" } };
+const base = EXAMENS.find(e => e.slug === 'mammographie')!;
+const content = EXAMENS_CONTENT['mammographie'];
 ---
 
-<BaseLayout title={pageTitle} description={pageDesc}>
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head" />
-  <script type="application/ld+json" set:html={JSON.stringify(medicalSchema)} slot="head" />
+<ExamenLayout base={base} content={content}>
+  <h2 class="text-2xl font-serif italic text-marine mt-12 mb-6">Délais et Résultats Spécifiques</h2>
+  <p>Pour une mammographie diagnostique classique, les résultats vous sont remis le jour même.
+  Dans le cadre du <strong>dépistage organisé (ADEM 50)</strong>, une seconde lecture est obligatoire.
+  Vos résultats définitifs seront envoyés par courrier sous environ 15 jours.</p>
 
-  <section class="pt-32 pb-20 bg-blanc">
-    <div class="container mx-auto px-6">
-      <nav class="flex gap-2 text-[10px] uppercase tracking-widest text-brume mb-12 font-bold font-sans">
-        <a href="/" class="hover:text-marine transition-colors">Accueil</a>
-        <span>/</span>
-        <a href="/examens/" class="hover:text-marine transition-colors">Examens</a>
-        <span>/</span>
-        <span class="text-marine">Mammographie</span>
-      </nav>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
-        <div class="lg:col-span-2">
-          <h1 class="text-4xl md:text-6xl italic text-marine mb-8 leading-tight">Mammographie <br/>& Sénologie</h1>
-          
-          <div class="prose prose-slate prose-lg text-ardoise max-w-none">
-            <p class="text-xl font-medium text-marine/80 mb-8 leading-relaxed">
-              Le Centre La Licorne est agréé pour le dépistage organisé du cancer du sein (ADEM 50). Nous mettons notre expertise au service de la santé des femmes à Saint-Lô.
-            </p>
-
-            <h2 class="text-2xl font-serif italic text-marine mt-12 mb-6">Le Dépistage Organisé : Une Priorité Mondiale</h2>
-            <p>
-              Entre 50 et 74 ans, la mammographie de dépistage est recommandée tous les deux ans. Cet examen est intégralement pris en charge par l'Assurance Maladie sans avance de frais. Il permet de détecter des lésions très précoces, indétectables à la palpation. Notre centre dispose de mammographes numériques haute définition garantissant une qualité d'image optimale avec une dose d'irradiation minimale.
-            </p>
-
-            <h2 class="text-2xl font-serif italic text-marine mt-12 mb-6">Préparation avant l'examen</h2>
-            <ul class="space-y-3 list-none pl-0">
-              <li class="bg-ciel/40 p-4 rounded-xl border border-separateur text-sm">
-                <strong>Cosmétiques :</strong> N'appliquez aucun produit (déodorant, lait corporel, talc ou parfum) sur le buste et les aisselles le jour de l'examen. Cela peut créer des artefacts sur les clichés.
-              </li>
-              <li class="bg-ciel/40 p-4 rounded-xl border border-separateur text-sm">
-                <strong>Anciens clichés :</strong> Il est crucial d'apporter vos mammographies précédentes pour permettre au radiologue d'effectuer une comparaison évolutive.
-              </li>
-            </ul>
-
-            <h2 class="text-2xl font-serif italic text-marine mt-12 mb-6">Délais et Résultats Spécifiques</h2>
-            <p>
-              Pour une mammographie diagnostique classique, les résultats vous sont remis le jour même. Dans le cadre du <strong>dépistage organisé (ADEM 50)</strong>, une seconde lecture est obligatoire par un radiologue expert indépendant. Vos résultats définitifs seront donc envoyés par courrier sous un délai d'environ 15 jours.
-            </p>
-
-            <h2 class="text-2xl font-serif italic text-marine mt-12 mb-6">Échographie Mammaire de Complément</h2>
-            <p>
-              Dans certains cas (densité mammaire élevée ou image suspecte), le radiologue effectuera immédiatement une échographie mammaire. Cet examen par ultrasons est indolore et permet de préciser la nature de l'image observée.
-            </p>
-          </div>
-
-          <div class="mt-20" x-data="{ active: null }">
-            <h2 class="text-3xl italic text-marine mb-8 font-serif">Questions fréquentes</h2>
-            <div class="space-y-4">
-              {faqItems.map((item, i) => (
-                <div class="border border-separateur rounded-2xl overflow-hidden bg-ciel/30">
-                  <button @click={`active === ${i} ? active = null : active = ${i}`} class="w-full p-6 text-left flex justify-between items-center group focus:outline-none">
-                    <span class="font-bold text-marine group-hover:text-licorne transition-colors">{item.q}</span>
-                    <span class="text-2xl text-licorne font-serif leading-none" x-text={`active === ${i} ? '−' : '+'`}></span>
-                  </button>
-                  <div x-show={`active === ${i}`} x-collapse x-cloak class="px-6 pb-6 text-sm text-ardoise border-t border-separateur/50 pt-4">
-                    {item.a}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <aside class="lg:col-span-1">
-          <div class="sticky top-32 space-y-8">
-            <div class="bg-marine p-8 rounded-3xl text-white shadow-xl">
-              <h3 class="text-xl font-serif italic mb-4">Prendre rendez-vous</h3>
-              <a href="tel:0233571790" class="flex items-center justify-center gap-3 bg-white text-marine py-4 rounded-full font-bold hover:bg-licorne transition-all text-lg">
-                02 33 57 17 90
-              </a>
-            </div>
-            <div class="bg-blanc p-8 rounded-3xl border border-separateur">
-              <h3 class="text-lg font-serif italic text-marine mb-6">Maillage Interne</h3>
-              <nav class="flex flex-col gap-3">
-                <a href="/examens/radiographie" class="text-sm py-3 px-4 rounded-xl bg-ciel/50 text-marine font-medium hover:bg-marine hover:text-white transition-all flex justify-between items-center group">Radiographie <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span></a>
-                <a href="/examens/echographie" class="text-sm py-3 px-4 rounded-xl bg-ciel/50 text-marine font-medium hover:bg-marine hover:text-white transition-all flex justify-between items-center group">Échographie <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span></a>
-                <a href="/examens/scanner" class="text-sm py-3 px-4 rounded-xl bg-ciel/50 text-marine font-medium hover:bg-marine hover:text-white transition-all flex justify-between items-center group">Scanner <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span></a>
-              </nav>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </div>
-  </section>
-  <Location />
-</BaseLayout>
-<style>[x-cloak] { display: none !important; }</style>
+  <h2 class="text-2xl font-serif italic text-marine mt-12 mb-6">Échographie Mammaire de Complément</h2>
+  <p>Dans certains cas (densité mammaire élevée), le radiologue effectuera immédiatement
+  une échographie mammaire pour préciser la nature de l'image observée.</p>
+</ExamenLayout>
