@@ -1,37 +1,89 @@
-<section class="relative pt-32 pb-20 lg:pt-48 lg:pb-40 overflow-hidden">
-  <!-- Fond décoratif -->
-  <div class="absolute inset-0 -z-10">
-    <div class="absolute inset-0 bg-gradient-to-br from-marine via-marine-clair to-marine"></div>
-    <div class="absolute right-0 top-0 w-1/2 h-full bg-white/5 skew-x-12 translate-x-20"></div>
-  </div>
-
-  <div class="container mx-auto px-6">
-    <div class="max-w-3xl">
+<section class="relative pt-32 pb-12 lg:pt-48 lg:pb-20 overflow-hidden bg-gradient-to-br from-marine to-marine-clair">
+  <div class="container mx-auto px-6 relative z-10">
+    <div class="max-w-3xl mb-20"> <!-- On augmente la marge en bas -->
       <!-- Badge Statut -->
-      <div class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full mb-8">
-        <div class="flex flex-col">
-           <span class="text-white text-[10px] uppercase tracking-widest font-bold opacity-70">Horaires d'ouverture</span>
-           <span class="text-white text-xs font-medium">Lundi au Vendredi · 8h30 - 18h30</span>
-        </div>
+      <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full mb-8">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-succes opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-succes"></span>
+        </span>
+        <span class="text-white text-[11px] font-medium uppercase tracking-widest">Cabinet ouvert · Lun - Ven</span>
       </div>
 
-      <h1 class="text-5xl md:text-7xl text-white mb-8 italic">
+      <h1 class="text-5xl md:text-7xl text-white mb-8 italic leading-tight">
         Votre centre d'imagerie <br class="hidden md:block" /> médicale à Saint-Lô
       </h1>
 
-      <p class="text-lg md:text-xl text-white/80 font-sans max-w-2xl mb-12 leading-relaxed">
-        Radiographie, échographie, mammographie — une expertise médicale de pointe alliée à un accompagnement humain et bienveillant.
+      <p class="text-lg md:text-xl text-white/80 font-sans max-w-2xl leading-relaxed">
+        Radiographie, échographie, mammographie — une expertise médicale de pointe alliée à un accompagnement humain.
       </p>
-
-      <div class="flex flex-col sm:flex-row gap-4">
-        <a href="tel:0233571790" class="bg-white text-marine px-8 py-4 rounded-full font-bold hover:bg-ciel transition-all text-center flex items-center justify-center gap-2">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-          Prendre rendez-vous
-        </a>
-        <a href="https://lic1.xplore.fr/Xaportaildiffusion/" target="_blank" class="border border-white/30 text-white px-8 py-4 rounded-full font-medium hover:bg-white/10 transition-all text-center">
-          Consulter mes résultats
-        </a>
-      </div>
     </div>
-  </div>
+
+    <!-- BARRE D'ACCÈS RAPIDE (Le secret du design pro) -->
+    <div class="reveal grid grid-cols-1 md:grid-cols-3 bg-white rounded-3xl shadow-2xl overflow-hidden border border-separateur">
+      
+      <!-- BLOC 1 : RENDEZ-VOUS -->
+      <div class="p-8 border-b md:border-b-0 md:border-r border-separateur flex flex-col justify-between">
+        <div class="flex items-center gap-2 mb-6">
+          <span class="w-1.5 h-1.5 rounded-full bg-licorne"></span>
+          <span class="text-[10px] font-bold uppercase tracking-widest text-brume">Rendez-vous</span>
+        </div>
+        
+        <div class="space-y-3">
+          <!-- Lien Doctolib -->
+          <a href="https://www.doctolib.fr/..." target="_blank" class="flex items-center justify-between p-3 rounded-xl bg-ciel/40 text-marine hover:bg-marine hover:text-white transition-all group">
+            <div class="flex items-center gap-3">
+              <svg class="w-4 h-4 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+              <span class="font-serif italic">En ligne (Scanner)</span>
+            </div>
+            <span class="text-licorne group-hover:text-white transition-colors">→</span>
+          </a>
+    
+          <!-- Lien Téléphone -->
+          <a href="tel:0233571790" class="flex items-center justify-between p-3 rounded-xl bg-ciel/40 text-marine hover:bg-marine hover:text-white transition-all group">
+            <div class="flex items-center gap-3">
+              <svg class="w-4 h-4 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+              <span class="font-serif italic">Par téléphone</span>
+            </div>
+            <span class="text-licorne group-hover:text-white transition-colors">→</span>
+          </a>
+        </div>
+      </div>
+    
+      <!-- BLOC 2 : LOCALISATION (Tout le bloc est cliquable) -->
+      <a href="https://maps.google.com" target="_blank" class="p-8 border-b md:border-b-0 md:border-r border-separateur flex flex-col justify-between group hover:bg-ciel/30 transition-colors">
+        <div class="flex items-center gap-2 mb-6">
+          <span class="w-1.5 h-1.5 rounded-full bg-brume"></span>
+          <span class="text-[10px] font-bold uppercase tracking-widest text-brume">Venir au cabinet</span>
+        </div>
+        
+        <div>
+          <div class="text-xl text-marine font-serif italic mb-2 group-hover:text-licorne transition-colors">321 rue Alexis de Tocqueville</div>
+          <div class="flex items-center gap-2 text-sm text-brume">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+            <span>Ouvrir dans Google Maps</span>
+          </div>
+        </div>
+      </a>
+    
+      <!-- BLOC 3 : HORAIRES -->
+      <div class="p-8 flex flex-col justify-between">
+        <div class="flex items-center gap-2 mb-6">
+          <span class="w-1.5 h-1.5 rounded-full bg-succes"></span>
+          <span class="text-[10px] font-bold uppercase tracking-widest text-brume">Horaires d'ouverture</span>
+        </div>
+        
+        <div>
+          <div class="text-xl text-marine font-serif italic mb-2">8h30 — 18h30</div>
+          <div class="flex items-center gap-2 text-sm text-succes font-medium">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <span>Du lundi au vendredi</span>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+
+  <!-- Déco de fond -->
+  <div class="absolute top-0 right-0 w-1/3 h-full bg-white/5 skew-x-12 translate-x-20 -z-0"></div>
 </section>
